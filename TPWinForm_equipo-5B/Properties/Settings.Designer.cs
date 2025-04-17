@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace tp_winform_equipo_5B.Properties
+namespace TPWinForm_equipo_5B.Properties
 {
 
 

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace tp_winform_equipo_5B.Properties
+namespace TPWinForm_equipo_5B.Properties
 {
 
 
@@ -44,7 +44,7 @@ namespace tp_winform_equipo_5B.Properties
             {
                 if ((resourceMan == null))
                 {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("tp_winform_equipo_5B.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("TPWinForm_equipo_5B.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
