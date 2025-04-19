@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using TPWinForm_equipo_5B;
 
 namespace tp_winform_equipo_5B
 {
@@ -19,7 +20,8 @@ namespace tp_winform_equipo_5B
 
         private void btnListarArticulo_Click(object sender, EventArgs e)
         {
-
+            frmListarArticulos ventana = new frmListarArticulos();
+            ventana.Show();
         }
 
         private void btnBusqueda_Click(object sender, EventArgs e)
@@ -38,6 +40,11 @@ namespace tp_winform_equipo_5B
         }
 
         private void btnVerDetalle_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void frmPrincipal_Load(object sender, EventArgs e)
         {
 
         }

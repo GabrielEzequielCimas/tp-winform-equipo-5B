@@ -4,11 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TPWinForm_equipo_5B
+namespace dominio
 {
-    internal class Categoria
+    public class Marca
     {
-        public int idCategoria { get; set; }
+        public int idMarca { get; set; }
         public string descripcion { get; set; }
+        public override string ToString()
+        {
+            return descripcion;
+        }
     }
 }

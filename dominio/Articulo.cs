@@ -5,9 +5,9 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace TPWinForm_equipo_5B
+namespace dominio
 {
-    internal class Articulo
+    public class Articulo
     {
         public int idArticulo { get; set; }
         public string codigo { get; set; }
@@ -16,6 +16,6 @@ namespace TPWinForm_equipo_5B
         public Marca marca { get; set; }
         public Categoria categoria { get; set; }
         public Imagenes imagen { get; set; }
-        public float precio { get; set; }
+        public decimal precio { get; set; }
     }
 }
