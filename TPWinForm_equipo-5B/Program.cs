@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using TPWinForm_equipo_5B;
 
 namespace tp_winform_equipo_5B
 {
@@ -16,7 +17,7 @@ namespace tp_winform_equipo_5B
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new frmPrincipal());
+            Application.Run(new frmListarArticulos());
         }
     }
 }
