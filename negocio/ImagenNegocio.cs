@@ -41,7 +41,7 @@ namespace negocio
             List<Imagenes> lista = new List<Imagenes>();
             ConexionDB imagenes = new ConexionDB();
             //imagenes.setearConsulta("select ImagenUrl from Imagenes where IdArticulo = " + idArticulo + ";");
-            imagenes.setearConsulta("select ImagenUrl from Imagenes where IdArticulo = @IdArticulo");
+            imagenes.setearConsulta("select Id,ImagenUrl from Imagenes where IdArticulo = @IdArticulo;");
             imagenes.setearParametro("IdArticulo", idArticulo);
             imagenes.ejecutarLectura();
             try
@@ -50,6 +50,7 @@ namespace negocio
                 while (imagenes.Lector.Read())
                 {
                     Imagenes aux = new Imagenes();
+                    aux.idImagen = (int)imagenes.Lector["Id"];
                     aux.url = (string)imagenes.Lector["ImagenUrl"];
                     aux.numeroImagen = contador += 1;
                     lista.Add(aux);
@@ -61,6 +62,25 @@ namespace negocio
 
                 throw ex;
             }
+        }
+        public void modificar(int id,string url)
+        {
+            ConexionDB datos = new ConexionDB();
+            try
+            {
+                datos.setearConsulta("update IMAGENES set ImagenUrl = @url where Id = @id");
+                datos.setearParametro("@url", url);
+                datos.setearParametro("@id", id);
+
+
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally { datos.cerrarConexion(); }
         }
     }
 }

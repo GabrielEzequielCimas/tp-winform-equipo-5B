@@ -47,9 +47,16 @@ namespace TPWinForm_equipo_5B
                 articulo.categoria = (Categoria)cboCategoria.SelectedItem;
                 //MessageBox.Show("insert into articulos (Codigo, Nombre, Descripcion, IdMarca, IdCategoria, Precio) values ('" + articulo.codigo + "','" + articulo.nombre + "','" + articulo.descripcion + "'," + articulo.marca.idMarca + "," + articulo.categoria.idCategoria + "," + articulo.precio +")");
                 imagenes.url = txtUrlImagen.Text;
+                Imagenes imagenSeleccionada = (Imagenes)cmbCambioImagen.SelectedItem;
                 if (articulo.idArticulo != 0)
                 {
+                    //cmbCambioImagen
+                    //imagenes.idImagen;
+                    //Imagenes imagenSeleccionada = (Imagenes)cmbCambioImagen.SelectedItem;
+                    MessageBox.Show(imagenSeleccionada.idImagen.ToString());
+                    MessageBox.Show(imagenSeleccionada.url);
                     articuloNegocio.modificar(articulo);
+                    imagenNegocio.modificar(imagenSeleccionada.idImagen,txtUrlImagen.Text);
                     MessageBox.Show("Modificado exitosamente");
 
                 }
@@ -109,6 +116,7 @@ namespace TPWinForm_equipo_5B
                     }
                     if (articulo.imagenes.Count > 0)
                     {
+                        cmbCambioImagen.SelectedItem = articulo.imagenes[0];
                         txtUrlImagen.Text = articulo.imagenes[0].url;
                         cargarImagen(articulo.imagenes[0].url);
                     }
