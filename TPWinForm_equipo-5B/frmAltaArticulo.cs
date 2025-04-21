@@ -76,13 +76,14 @@ namespace TPWinForm_equipo_5B
                 }
                 else
                 {
+                    articuloNegocio.agregar(articulo);
                     imagenNegocio.agregar(imagenes, 0);
                     MessageBox.Show("Agregado exitosamente");
                 }
-                if (archivo != null && !(txtUrlImagen.Text.ToUpper().Contains("HTTP")))
-                {
-                    File.Copy(archivo.FileName, "C:\\PROGRA3-APP-ARTICULOS\\" + archivo.SafeFileName);
-                }
+                //if (archivo != null && !(txtUrlImagen.Text.ToUpper().Contains("HTTP")))
+                //{
+                //    File.Copy(archivo.FileName, "C:\\PROGRA3-APP-ARTICULOS\\" + archivo.SafeFileName);
+                //}
                 Close();
             }
             catch (Exception ex)
