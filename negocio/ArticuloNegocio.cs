@@ -97,5 +97,19 @@ namespace negocio
             }
             finally { datos.cerrarConexion(); }
         }
+        public void eliminar(Articulo articulo)
+        {
+            try
+            {
+                ConexionDB datos = new ConexionDB();
+                datos.setearConsulta("delete from articulos where Id = @id");
+                datos.setearParametro("@id", articulo.idArticulo);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 }

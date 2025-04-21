@@ -104,5 +104,25 @@ namespace TPWinForm_equipo_5B
             modificacion.ShowDialog();
             cargar();
         }
+
+        private void btnEliminar_Click(object sender, EventArgs e)
+        {
+            ArticuloNegocio negocio = new ArticuloNegocio();
+            Articulo seleccionado;
+            try
+            {
+                DialogResult = MessageBox.Show("¿Seguro quiere eliminarlo?","Eliminando",MessageBoxButtons.YesNo,MessageBoxIcon.Warning);
+                if (DialogResult == DialogResult.Yes)
+                {
+                    seleccionado = (Articulo)dgvArticulos.CurrentRow.DataBoundItem;
+                    negocio.eliminar(seleccionado);
+                    cargar();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
     }
 }
