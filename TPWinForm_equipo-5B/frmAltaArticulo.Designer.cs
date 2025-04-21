@@ -47,6 +47,7 @@
             this.txtUrlImagen = new System.Windows.Forms.TextBox();
             this.cmbCambioImagen = new System.Windows.Forms.ComboBox();
             this.lblSeleccion = new System.Windows.Forms.Label();
+            this.btnAgregarImagen = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pbxCargaImagenArt)).BeginInit();
             this.SuspendLayout();
             // 
@@ -170,7 +171,7 @@
             // 
             // pbxCargaImagenArt
             // 
-            this.pbxCargaImagenArt.Location = new System.Drawing.Point(317, 41);
+            this.pbxCargaImagenArt.Location = new System.Drawing.Point(335, 41);
             this.pbxCargaImagenArt.Name = "pbxCargaImagenArt";
             this.pbxCargaImagenArt.Size = new System.Drawing.Size(226, 178);
             this.pbxCargaImagenArt.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -196,8 +197,9 @@
             // 
             // cmbCambioImagen
             // 
+            this.cmbCambioImagen.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbCambioImagen.FormattingEnabled = true;
-            this.cmbCambioImagen.Location = new System.Drawing.Point(422, 250);
+            this.cmbCambioImagen.Location = new System.Drawing.Point(440, 250);
             this.cmbCambioImagen.Name = "cmbCambioImagen";
             this.cmbCambioImagen.Size = new System.Drawing.Size(121, 21);
             this.cmbCambioImagen.TabIndex = 16;
@@ -206,17 +208,29 @@
             // lblSeleccion
             // 
             this.lblSeleccion.AutoSize = true;
-            this.lblSeleccion.Location = new System.Drawing.Point(314, 253);
+            this.lblSeleccion.Location = new System.Drawing.Point(332, 253);
             this.lblSeleccion.Name = "lblSeleccion";
             this.lblSeleccion.Size = new System.Drawing.Size(103, 13);
             this.lblSeleccion.TabIndex = 17;
             this.lblSeleccion.Text = "Seleccionar imagen:";
+            // 
+            // btnAgregarImagen
+            // 
+            this.btnAgregarImagen.Enabled = false;
+            this.btnAgregarImagen.Location = new System.Drawing.Point(304, 145);
+            this.btnAgregarImagen.Name = "btnAgregarImagen";
+            this.btnAgregarImagen.Size = new System.Drawing.Size(25, 20);
+            this.btnAgregarImagen.TabIndex = 18;
+            this.btnAgregarImagen.Text = "+";
+            this.btnAgregarImagen.UseVisualStyleBackColor = true;
+            this.btnAgregarImagen.Click += new System.EventHandler(this.btnAgregarImagen_Click);
             // 
             // frmAltaArticulo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(627, 314);
+            this.Controls.Add(this.btnAgregarImagen);
             this.Controls.Add(this.lblSeleccion);
             this.Controls.Add(this.cmbCambioImagen);
             this.Controls.Add(this.txtUrlImagen);
@@ -266,5 +280,6 @@
         private System.Windows.Forms.TextBox txtUrlImagen;
         private System.Windows.Forms.ComboBox cmbCambioImagen;
         private System.Windows.Forms.Label lblSeleccion;
+        private System.Windows.Forms.Button btnAgregarImagen;
     }
 }

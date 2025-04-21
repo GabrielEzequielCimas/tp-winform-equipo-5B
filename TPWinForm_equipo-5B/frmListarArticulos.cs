@@ -53,10 +53,10 @@ namespace TPWinForm_equipo_5B
                 Imagenes imagenSeleccionada = (Imagenes)cmbListaImagenes.SelectedItem;
                 cargarImagen(imagenSeleccionada.url);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
-                throw;
+                MessageBox.Show(ex.ToString()); ;
             }
         }
         private void cargar()
@@ -83,7 +83,7 @@ namespace TPWinForm_equipo_5B
             {
                 pbxListarArticulo.Load(imagen);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
 
                 pbxListarArticulo.Load("https://media.istockphoto.com/id/1147544807/vector/thumbnail-image-vector-graphic.jpg?s=612x612&w=0&k=20&c=rnCKVbdxqkjlcs3xH87-9gocETqpspHFXu5dIGB4wuM=");
@@ -100,11 +100,24 @@ namespace TPWinForm_equipo_5B
 
         private void btnModificar_Click(object sender, EventArgs e)
         {
-            Articulo seleccionado;
-            seleccionado = (Articulo)dgvArticulos.CurrentRow.DataBoundItem;
-            frmAltaArticulo modificacion = new frmAltaArticulo(seleccionado);
-            modificacion.ShowDialog();
-            cargar();
+            try
+            {   
+                if (dgvArticulos.SelectedRows.Count == 0)
+                {
+                    MessageBox.Show("Tenés que seleccionar un artículo");
+                    return;
+                }
+                Articulo seleccionado;
+                seleccionado = (Articulo)dgvArticulos.CurrentRow.DataBoundItem;
+                frmAltaArticulo modificacion = new frmAltaArticulo(seleccionado);
+                modificacion.ShowDialog();
+                cargar();
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.ToString());
+            }
         }
 
         private void btnEliminar_Click(object sender, EventArgs e)
@@ -145,12 +158,47 @@ namespace TPWinForm_equipo_5B
                 cboCriterio.Items.Add("Contiene");
             }
         }
+        private bool soloNumeros(string cadena)
+        {   foreach (char caracter in cadena)
+            {
+                if (!(char.IsNumber(caracter))) return false;
+            }
+            return true;
+        }
+        private bool validarFiltro()
+        {
+            if(cboCampo.SelectedIndex < 0)
+            {
+                MessageBox.Show("Seleccione un campo a filtrar");
+                return true;
+            }
+            if (cboCriterio.SelectedIndex < 0)
+            {
+                MessageBox.Show("Seleccione un criterio a filtrar");
+                return true;
+            }
+            if (cboCampo.SelectedItem.ToString() == "Precio")
+            {
+                if (string.IsNullOrEmpty(txtFiltro.Text))
+                {
+                    MessageBox.Show("Carga un numero en el filtro");
+                    return true;
+                }
+                if (!(soloNumeros(txtFiltro.Text)))
+                {
+                    MessageBox.Show("Solo numero por favor");
+                    return true;
+                }
+            }
+            return false;
+        }
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
             ArticuloNegocio negocio = new ArticuloNegocio();
             try
             {
+                if (validarFiltro()) return;
                 string campo = cboCampo.SelectedItem.ToString();
                 string criterio = cboCriterio.SelectedItem.ToString();
                 string filtro = txtFiltro.Text;

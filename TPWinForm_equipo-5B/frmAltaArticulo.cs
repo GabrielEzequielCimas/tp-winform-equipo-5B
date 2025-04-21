@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using dominio;
 using negocio;
+using System.IO;
+using System.Configuration;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace TPWinForm_equipo_5B
@@ -20,6 +22,7 @@ namespace TPWinForm_equipo_5B
         {
             InitializeComponent();
         }
+        private OpenFileDialog archivo = null;
 
         public frmAltaArticulo(Articulo articulo)
         {
@@ -37,7 +40,18 @@ namespace TPWinForm_equipo_5B
             ImagenNegocio imagenNegocio = new ImagenNegocio();
             try
             {
-                if(articulo == null)
+                if (string.IsNullOrWhiteSpace(txtCodArt.Text) || string.IsNullOrWhiteSpace(txtNombre.Text) || string.IsNullOrWhiteSpace(txtDescripcion.Text) ||string.IsNullOrWhiteSpace(txtPrecio.Text))
+                {
+                    MessageBox.Show("Faltan uno o mas campos");
+                    return;
+                }
+
+                if (!decimal.TryParse(txtPrecio.Text, out decimal precio))
+                {
+                    MessageBox.Show("El precio solo admite números");
+                    return;
+                }
+                if (articulo == null)
                     articulo = new Articulo();
                 articulo.codigo = txtCodArt.Text;
                 articulo.nombre = txtNombre.Text;
@@ -53,8 +67,8 @@ namespace TPWinForm_equipo_5B
                     //cmbCambioImagen
                     //imagenes.idImagen;
                     //Imagenes imagenSeleccionada = (Imagenes)cmbCambioImagen.SelectedItem;
-                    MessageBox.Show(imagenSeleccionada.idImagen.ToString());
-                    MessageBox.Show(imagenSeleccionada.url);
+                    //MessageBox.Show(imagenSeleccionada.idImagen.ToString());
+                    //MessageBox.Show(imagenSeleccionada.url);
                     articuloNegocio.modificar(articulo);
                     imagenNegocio.modificar(imagenSeleccionada.idImagen,txtUrlImagen.Text);
                     MessageBox.Show("Modificado exitosamente");
@@ -64,6 +78,10 @@ namespace TPWinForm_equipo_5B
                 {
                     imagenNegocio.agregar(imagenes, 0);
                     MessageBox.Show("Agregado exitosamente");
+                }
+                if (archivo != null && !(txtUrlImagen.Text.ToUpper().Contains("HTTP")))
+                {
+                    File.Copy(archivo.FileName, "C:\\PROGRA3-APP-ARTICULOS\\" + archivo.SafeFileName);
                 }
                 Close();
             }
@@ -165,6 +183,33 @@ namespace TPWinForm_equipo_5B
             {
                 MessageBox.Show("Error al seleccionar imagen: " + ex.Message);
             }
+        }
+
+        private void btnAgregarImagen_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                OpenFileDialog archivo = new OpenFileDialog();
+                archivo.Filter = "Archivos de imagen (*.jpg; *.jpeg; *.png)|*.jpg;*.jpeg;*.png";
+                if (archivo.ShowDialog() == DialogResult.OK)
+                {
+                    txtUrlImagen.Text = archivo.FileName;
+                    cargarImagen(archivo.FileName);
+                    string ruta = "C:\\PROGRA3-APP-ARTICULOS\\";
+                    MessageBox.Show(ruta);
+                    if (!Directory.Exists(ruta))
+                    {
+                        Directory.CreateDirectory(ruta);
+                    }
+                    File.Copy(archivo.FileName, ruta + archivo.SafeFileName);
+                }
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show("Error al seleccionar imagen: " + ex.Message); ;
+            }
+            
         }
     }
 }
