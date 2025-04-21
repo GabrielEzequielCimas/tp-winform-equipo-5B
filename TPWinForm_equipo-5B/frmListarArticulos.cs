@@ -22,21 +22,7 @@ namespace TPWinForm_equipo_5B
 
         private void frmListarArticulos_Load(object sender, EventArgs e)
         {
-            ArticuloNegocio articulo = new ArticuloNegocio();
-            try
-            {
-                listaArticulo = articulo.Listar();
-                dgvArticulos.DataSource = listaArticulo;
-                dgvArticulos.Columns["idArticulo"].Visible = false;
-                //pbxListarArticulo.Load(listaArticulo[0].imagenes[0].url);
-                //dgvArticulos.Columns["imagen"].Visible = false;
-                //pbxArticulo.Load(lis) 
-            }
-            catch (Exception ex)
-            {
-                //MessageBox.Show(ex.ToString());
-                throw ex;
-            }
+            cargar();
             
         }
 
@@ -48,9 +34,13 @@ namespace TPWinForm_equipo_5B
             {
                 cmbListaImagenes.Items.Add(imagen);
             }
-            cmbListaImagenes.SelectedIndex = 0;
-            Imagenes imagenSeleccionada = (Imagenes)cmbListaImagenes.SelectedItem;
-            cargarImagen(imagenSeleccionada.url);
+            if (seleccion.imagenes.Count > 0)
+            {
+                cmbListaImagenes.SelectedIndex = 0;//tengo q verificar accion si no tiene imagen 
+                Imagenes imagenSeleccionada = (Imagenes)cmbListaImagenes.SelectedItem;
+                cargarImagen(imagenSeleccionada.url);
+            }
+            else { cargarImagen(""); }  
         }
 
 
@@ -65,6 +55,24 @@ namespace TPWinForm_equipo_5B
             {
 
                 throw;
+            }
+        }
+        private void cargar()
+        {
+            ArticuloNegocio articulo = new ArticuloNegocio();
+            try
+            {
+                listaArticulo = articulo.Listar();
+                dgvArticulos.DataSource = listaArticulo;
+                dgvArticulos.Columns["idArticulo"].Visible = false;
+                //pbxListarArticulo.Load(listaArticulo[0].imagenes[0].url);
+                //dgvArticulos.Columns["imagen"].Visible = false;
+                //pbxArticulo.Load(lis) 
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+                //throw ex;
             }
         }
         private void cargarImagen(string imagen)
@@ -84,6 +92,17 @@ namespace TPWinForm_equipo_5B
         {
             frmAltaArticulo alta = new frmAltaArticulo();
             alta.ShowDialog();
+            cargar();
+
+        }
+
+        private void btnModificar_Click(object sender, EventArgs e)
+        {
+            Articulo seleccionado;
+            seleccionado = (Articulo)dgvArticulos.CurrentRow.DataBoundItem;
+            frmAltaArticulo modificacion = new frmAltaArticulo(seleccionado);
+            modificacion.ShowDialog();
+            cargar();
         }
     }
 }

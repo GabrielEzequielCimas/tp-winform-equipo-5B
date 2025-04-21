@@ -4,6 +4,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Security.AccessControl;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using dominio;
 
@@ -11,37 +12,13 @@ namespace negocio
 {
     public class ArticuloNegocio
     {
-        public List<Imagenes> ListarImagenes(int idArticulo)
-        {
-            List<Imagenes> lista = new List<Imagenes>();
-            ConexionDB imagenes = new ConexionDB();
-            imagenes.setearConsulta("select ImagenUrl from Imagenes where IdArticulo = " + idArticulo + ";");
-            imagenes.ejecutarLectura();
-            try
-            {
-                int contador = 0;
-                while (imagenes.Lector.Read())
-                {
-                    Imagenes aux = new Imagenes();
-                    aux.url = (string)imagenes.Lector["ImagenUrl"];
-                    aux.numeroImagen = contador += 1;
-                    lista.Add(aux);
-                }
-                return lista;
-            }
-            catch (Exception ex)
-            {
-
-                throw ex;
-            }
-        }
         public List<Articulo> Listar()
         {
             List<Articulo> lista = new List<Articulo>();
             ConexionDB datos = new ConexionDB();
             try
             {
-                datos.setearConsulta("select a.Id, Codigo, Nombre, a.Descripcion, M.Descripcion as marca, a.IdCategoria, C.Descripcion as categoria, Precio from ARTICULOS A left join MARCAS M on a.IdMarca = M.Id left join CATEGORIAS C on A.IdCategoria = c.Id;");
+                datos.setearConsulta("select a.Id, Codigo, Nombre, a.Descripcion, a.IdMarca, M.Descripcion as marca, a.IdCategoria, C.Descripcion as categoria, Precio from ARTICULOS A left join MARCAS M on a.IdMarca = M.Id left join CATEGORIAS C on A.IdCategoria = c.Id; ");
                 datos.ejecutarLectura();
                 while (datos.Lector.Read())
                 {
@@ -50,14 +27,17 @@ namespace negocio
                     aux.codigo = (string)datos.Lector["Codigo"];
                     aux.nombre = (string)datos.Lector["Nombre"];
                     aux.categoria = new Categoria();
-                    if (!(datos.Lector.IsDBNull(datos.Lector.GetOrdinal("Categoria"))))
+                    aux.categoria.idCategoria = (int)datos.Lector["IdCategoria"];
+                    if (!(datos.Lector.IsDBNull(datos.Lector.GetOrdinal("Categoria"))))//validar si la DB trae un null
                         aux.categoria.descripcion = (string)datos.Lector["Categoria"];
                     else aux.categoria.descripcion = "";
                     aux.marca = new Marca();
+                    aux.marca.idMarca = (int)datos.Lector["IdMarca"];
                     aux.marca.descripcion = (string)datos.Lector["Marca"];
                     aux.descripcion = (string)datos.Lector["Descripcion"];
                     aux.precio = (decimal)datos.Lector["Precio"];
-                    aux.imagenes = ListarImagenes(aux.idArticulo);
+                    ImagenNegocio imagen = new ImagenNegocio();
+                    aux.imagenes = imagen.ListarImagenes(aux.idArticulo);
                     lista.Add(aux);
                 }
                 return lista;
@@ -68,6 +48,54 @@ namespace negocio
                 throw ex;
             }
         }
+        public void agregar(Articulo nuevo)
+        {
+            ConexionDB datos = new ConexionDB();
+            try
+            {
+                //datos.setearConsulta("insert into articulos (Codigo, Nombre, Descripcion) values ('" + nuevo.codigo + "','" + nuevo.nombre + "','" + nuevo.descripcion + "');");
+                //datos.setearConsulta("insert into articulos (Codigo, Nombre, Descripcion, IdMarca, IdCategoria, Precio) values ('" + nuevo.codigo + "','" + nuevo.nombre + "','" + nuevo.descripcion + "'," + nuevo.marca.idMarca + "," + nuevo.categoria.idCategoria + "," + nuevo.precio + ")");
+                datos.setearConsulta("insert into articulos (Codigo, Nombre, Descripcion, IdMarca, IdCategoria, Precio) values (@CodigoArticulo,@NombreArticulo,@DescripcionArticulo,@MarcaArticulo,@CategoriaArticulo,@PrecioArticulo)");
+                datos.setearParametro("CodigoArticulo", nuevo.codigo);
+                datos.setearParametro("NombreArticulo", nuevo.nombre);
+                datos.setearParametro("DescripcionArticulo", nuevo.descripcion);
+                datos.setearParametro("MarcaArticulo", nuevo.marca.idMarca);
+                datos.setearParametro("CategoriaArticulo", nuevo.categoria.idCategoria);
+                datos.setearParametro("PrecioArticulo", nuevo.precio);
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+        public void modificar(Articulo modificar)
+        {
+            ConexionDB datos = new ConexionDB();
+            try
+            {
+                datos.setearConsulta("update ARTICULOS set Codigo = @codigo, Nombre = @nombre, Descripcion = @descripcion, IdMarca = @idMarca, IdCategoria = @idCategoria, Precio = @Precio where Id = @id");
+                datos.setearParametro("@codigo", modificar.codigo);
+                datos.setearParametro("@nombre", modificar.nombre);
+                datos.setearParametro("@descripcion", modificar.descripcion);
+                datos.setearParametro("idMarca", modificar.marca.idMarca);
+                datos.setearParametro("idCategoria", modificar.categoria.idCategoria);
+                datos.setearParametro("@Precio", modificar.precio);
+                datos.setearParametro("@id", modificar.idArticulo);
+
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally { datos.cerrarConexion(); }
+        }
     }
 }
-
