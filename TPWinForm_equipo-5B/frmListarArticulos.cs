@@ -211,5 +211,58 @@ namespace TPWinForm_equipo_5B
             }
             
         }
+
+        private void btnEliminarImagen_Click_1(object sender, EventArgs e)
+        {
+            ImagenNegocio imgNegocio = new ImagenNegocio();
+            Imagenes objImagenes = new Imagenes();
+            try
+            {
+                if (cmbListaImagenes.SelectedItem != null)
+                {
+                    objImagenes = (Imagenes)cmbListaImagenes.SelectedItem;
+                    DialogResult = MessageBox.Show("¿Seguro quiere eliminarla?", "Eliminando", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                    if (DialogResult == DialogResult.Yes)
+                    {
+                        imgNegocio.eliminar(objImagenes.idImagen);
+                        MessageBox.Show("Imagen eliminada correctamente");
+                        cargar();
+                    }
+                    else return;
+                }
+                else
+                {
+                    MessageBox.Show("El articulo no tiene imagenes");
+                    return;
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        private void btnAgregarImagen_Click(object sender, EventArgs e)
+        {
+            frmAgregarImagen alta = new frmAgregarImagen((Articulo)dgvArticulos.CurrentRow.DataBoundItem);
+            alta.ShowDialog();
+            cargar();
+        }
+
+        private void btnLimpiarFiltro_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                ArticuloNegocio negocio = new ArticuloNegocio();
+                negocio.Listar();
+                cargar();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 }

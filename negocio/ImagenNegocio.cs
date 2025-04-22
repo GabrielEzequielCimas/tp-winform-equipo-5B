@@ -21,7 +21,7 @@ namespace negocio
                 else
                 { 
                     datos.setearConsulta("insert into Imagenes (IdArticulo,ImagenUrl) values (@IdArticuloImgaen,@ImagenUrl)");
-                    datos.setearParametro("IdArticulo", IdArticulo);
+                    datos.setearParametro("IdArticuloImgaen", IdArticulo);
                 }
                 datos.setearParametro("ImagenUrl", nuevo.url);
                 datos.ejecutarAccion();
@@ -70,6 +70,24 @@ namespace negocio
             {
                 datos.setearConsulta("update IMAGENES set ImagenUrl = @url where Id = @id");
                 datos.setearParametro("@url", url);
+                datos.setearParametro("@id", id);
+
+
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally { datos.cerrarConexion(); }
+        }
+        public void eliminar(int id)
+        {
+            ConexionDB datos = new ConexionDB();
+            try
+            {
+                datos.setearConsulta("delete from IMAGENES where Id = @id");
                 datos.setearParametro("@id", id);
 
 

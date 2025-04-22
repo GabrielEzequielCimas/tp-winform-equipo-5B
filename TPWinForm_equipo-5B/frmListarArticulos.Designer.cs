@@ -42,6 +42,9 @@
             this.cboCriterio = new System.Windows.Forms.ComboBox();
             this.btnBuscar = new System.Windows.Forms.Button();
             this.txtFiltro = new System.Windows.Forms.TextBox();
+            this.btnAgregarImagen = new System.Windows.Forms.Button();
+            this.btnEliminarImagen = new System.Windows.Forms.Button();
+            this.btnLimpiarFiltro = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvArticulos)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbxListarArticulo)).BeginInit();
             this.SuspendLayout();
@@ -167,9 +170,9 @@
             // 
             // btnBuscar
             // 
-            this.btnBuscar.Location = new System.Drawing.Point(523, 443);
+            this.btnBuscar.Location = new System.Drawing.Point(519, 443);
             this.btnBuscar.Name = "btnBuscar";
-            this.btnBuscar.Size = new System.Drawing.Size(75, 23);
+            this.btnBuscar.Size = new System.Drawing.Size(79, 23);
             this.btnBuscar.TabIndex = 13;
             this.btnBuscar.Text = "Buscar";
             this.btnBuscar.UseVisualStyleBackColor = true;
@@ -182,11 +185,44 @@
             this.txtFiltro.Size = new System.Drawing.Size(100, 20);
             this.txtFiltro.TabIndex = 14;
             // 
+            // btnAgregarImagen
+            // 
+            this.btnAgregarImagen.Location = new System.Drawing.Point(1017, 21);
+            this.btnAgregarImagen.Name = "btnAgregarImagen";
+            this.btnAgregarImagen.Size = new System.Drawing.Size(136, 23);
+            this.btnAgregarImagen.TabIndex = 15;
+            this.btnAgregarImagen.Text = "Agregar imagen";
+            this.btnAgregarImagen.UseVisualStyleBackColor = true;
+            this.btnAgregarImagen.Click += new System.EventHandler(this.btnAgregarImagen_Click);
+            // 
+            // btnEliminarImagen
+            // 
+            this.btnEliminarImagen.Location = new System.Drawing.Point(804, 21);
+            this.btnEliminarImagen.Name = "btnEliminarImagen";
+            this.btnEliminarImagen.Size = new System.Drawing.Size(136, 23);
+            this.btnEliminarImagen.TabIndex = 16;
+            this.btnEliminarImagen.Text = "Eliminar imagen";
+            this.btnEliminarImagen.UseVisualStyleBackColor = true;
+            this.btnEliminarImagen.Click += new System.EventHandler(this.btnEliminarImagen_Click_1);
+            // 
+            // btnLimpiarFiltro
+            // 
+            this.btnLimpiarFiltro.Location = new System.Drawing.Point(519, 414);
+            this.btnLimpiarFiltro.Name = "btnLimpiarFiltro";
+            this.btnLimpiarFiltro.Size = new System.Drawing.Size(79, 23);
+            this.btnLimpiarFiltro.TabIndex = 17;
+            this.btnLimpiarFiltro.Text = "Limpiar filtros";
+            this.btnLimpiarFiltro.UseVisualStyleBackColor = true;
+            this.btnLimpiarFiltro.Click += new System.EventHandler(this.btnLimpiarFiltro_Click);
+            // 
             // frmListarArticulos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1165, 487);
+            this.Controls.Add(this.btnLimpiarFiltro);
+            this.Controls.Add(this.btnEliminarImagen);
+            this.Controls.Add(this.btnAgregarImagen);
             this.Controls.Add(this.txtFiltro);
             this.Controls.Add(this.btnBuscar);
             this.Controls.Add(this.cboCriterio);
@@ -227,5 +263,8 @@
         private System.Windows.Forms.ComboBox cboCriterio;
         private System.Windows.Forms.Button btnBuscar;
         private System.Windows.Forms.TextBox txtFiltro;
+        private System.Windows.Forms.Button btnAgregarImagen;
+        private System.Windows.Forms.Button btnEliminarImagen;
+        private System.Windows.Forms.Button btnLimpiarFiltro;
     }
 }

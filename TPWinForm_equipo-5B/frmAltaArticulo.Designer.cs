@@ -216,20 +216,19 @@
             // 
             // btnAgregarImagen
             // 
-            this.btnAgregarImagen.Enabled = false;
             this.btnAgregarImagen.Location = new System.Drawing.Point(304, 145);
             this.btnAgregarImagen.Name = "btnAgregarImagen";
             this.btnAgregarImagen.Size = new System.Drawing.Size(25, 20);
             this.btnAgregarImagen.TabIndex = 18;
             this.btnAgregarImagen.Text = "+";
             this.btnAgregarImagen.UseVisualStyleBackColor = true;
-            this.btnAgregarImagen.Visible = false;
             this.btnAgregarImagen.Click += new System.EventHandler(this.btnAgregarImagen_Click);
             // 
             // frmAltaArticulo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(627, 314);
             this.Controls.Add(this.btnAgregarImagen);
             this.Controls.Add(this.lblSeleccion);

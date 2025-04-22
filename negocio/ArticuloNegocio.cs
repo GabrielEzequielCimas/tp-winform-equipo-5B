@@ -105,6 +105,7 @@ namespace negocio
                 ConexionDB datos = new ConexionDB();
                 datos.setearConsulta("delete from articulos where Id = @id");
                 datos.setearParametro("@id", articulo.idArticulo);
+                datos.ejecutarAccion();
             }
             catch (Exception)
             {

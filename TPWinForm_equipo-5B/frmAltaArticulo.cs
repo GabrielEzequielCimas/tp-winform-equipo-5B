@@ -34,7 +34,6 @@ namespace TPWinForm_equipo_5B
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-            //Articulo articulo = new Articulo();
             Imagenes imagenes = new Imagenes();
             ArticuloNegocio articuloNegocio = new ArticuloNegocio();
             ImagenNegocio imagenNegocio = new ImagenNegocio();
@@ -59,16 +58,10 @@ namespace TPWinForm_equipo_5B
                 articulo.precio = decimal.Parse(txtPrecio.Text);
                 articulo.marca = (Marca)cboMarca.SelectedItem;
                 articulo.categoria = (Categoria)cboCategoria.SelectedItem;
-                //MessageBox.Show("insert into articulos (Codigo, Nombre, Descripcion, IdMarca, IdCategoria, Precio) values ('" + articulo.codigo + "','" + articulo.nombre + "','" + articulo.descripcion + "'," + articulo.marca.idMarca + "," + articulo.categoria.idCategoria + "," + articulo.precio +")");
                 imagenes.url = txtUrlImagen.Text;
                 Imagenes imagenSeleccionada = (Imagenes)cmbCambioImagen.SelectedItem;
                 if (articulo.idArticulo != 0)
                 {
-                    //cmbCambioImagen
-                    //imagenes.idImagen;
-                    //Imagenes imagenSeleccionada = (Imagenes)cmbCambioImagen.SelectedItem;
-                    //MessageBox.Show(imagenSeleccionada.idImagen.ToString());
-                    //MessageBox.Show(imagenSeleccionada.url);
                     articuloNegocio.modificar(articulo);
                     imagenNegocio.modificar(imagenSeleccionada.idImagen,txtUrlImagen.Text);
                     MessageBox.Show("Modificado exitosamente");
@@ -80,10 +73,10 @@ namespace TPWinForm_equipo_5B
                     imagenNegocio.agregar(imagenes, 0);
                     MessageBox.Show("Agregado exitosamente");
                 }
-                //if (archivo != null && !(txtUrlImagen.Text.ToUpper().Contains("HTTP")))
-                //{
-                //    File.Copy(archivo.FileName, "C:\\PROGRA3-APP-ARTICULOS\\" + archivo.SafeFileName);
-                //}
+                if (archivo != null && !(txtUrlImagen.Text.ToUpper().Contains("HTTP")))
+                {
+                    File.Copy(archivo.FileName, "C:\\PROGRA3-APP-ARTICULOS\\" + archivo.SafeFileName);
+                }
                 Close();
             }
             catch (Exception ex)
@@ -91,6 +84,7 @@ namespace TPWinForm_equipo_5B
                 MessageBox.Show(ex.ToString());
             }
         }
+
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {
@@ -108,10 +102,8 @@ namespace TPWinForm_equipo_5B
             }
             cboCategoria.DropDownStyle = ComboBoxStyle.DropDownList;// busque como setearlo manual porque no econtre la propiedad
             cboMarca.DropDownStyle = ComboBoxStyle.DropDownList;// busque como setearlo manual porque no econtre la propiedad
-            //ArticuloNegocio negocio = new ArticuloNegocio();
             CategoriaNegocio categoriaNegocio = new CategoriaNegocio();
             MarcaNegocio marcaNegocio = new MarcaNegocio();
-            //negocio.ListarMarcas();
             try
             {
                 cboMarca.DataSource = marcaNegocio.ListarMarcas();
@@ -197,7 +189,6 @@ namespace TPWinForm_equipo_5B
                     txtUrlImagen.Text = archivo.FileName;
                     cargarImagen(archivo.FileName);
                     string ruta = "C:\\PROGRA3-APP-ARTICULOS\\";
-                    MessageBox.Show(ruta);
                     if (!Directory.Exists(ruta))
                     {
                         Directory.CreateDirectory(ruta);
