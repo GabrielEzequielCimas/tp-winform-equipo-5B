@@ -199,5 +199,30 @@ namespace negocio
                 throw ex;
             }
         }
+
+        public bool existeCodigo(string codigo)
+        {
+            ConexionDB datos = new ConexionDB();
+            try
+            {
+                datos.setearConsulta("SELECT COUNT(*) FROM ARTICULOS WHERE Codigo = @codigo");
+                datos.setearParametro("@codigo", codigo);
+                datos.ejecutarLectura();
+                if (datos.Lector.Read())
+                {
+                    int count = (int)datos.Lector[0];
+                    return count > 0;
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
     }
 }

@@ -69,6 +69,11 @@ namespace TPWinForm_equipo_5B
                 }
                 else
                 {
+                    if (articulo.idArticulo == 0 && articuloNegocio.existeCodigo(txtCodArt.Text))
+                    {
+                        MessageBox.Show("Ya existe un articulo con ese codigo. Ingrese uno diferente.");
+                        return;
+                    }
                     articuloNegocio.agregar(articulo);
                     imagenNegocio.agregar(imagenes, 0);
                     MessageBox.Show("Agregado exitosamente");
