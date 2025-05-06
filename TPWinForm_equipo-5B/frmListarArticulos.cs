@@ -30,19 +30,31 @@ namespace TPWinForm_equipo_5B
 
         private void dgvArticulos_SelectionChanged(object sender, EventArgs e)
         {
+            if (dgvArticulos.CurrentRow == null)
+                return;
+
             Articulo seleccion = (Articulo)dgvArticulos.CurrentRow.DataBoundItem;
+
+            if (seleccion == null || seleccion.imagenes == null)
+                return;
+
             cmbListaImagenes.Items.Clear();
+
             foreach (Imagenes imagen in seleccion.imagenes)
             {
                 cmbListaImagenes.Items.Add(imagen);
             }
+
             if (seleccion.imagenes.Count > 0)
             {
-                cmbListaImagenes.SelectedIndex = 0;//tengo q verificar accion si no tiene imagen 
+                cmbListaImagenes.SelectedIndex = 0;
                 Imagenes imagenSeleccionada = (Imagenes)cmbListaImagenes.SelectedItem;
                 cargarImagen(imagenSeleccionada.url);
             }
-            else { cargarImagen(""); }  
+            else
+            {
+                cargarImagen("");
+            }
         }
 
 
@@ -59,24 +71,27 @@ namespace TPWinForm_equipo_5B
                 MessageBox.Show(ex.ToString()); ;
             }
         }
+
         private void cargar()
         {
             ArticuloNegocio articulo = new ArticuloNegocio();
             try
             {
+                dgvArticulos.SelectionChanged -= dgvArticulos_SelectionChanged; //Desconecta
                 listaArticulo = articulo.Listar();
                 dgvArticulos.DataSource = listaArticulo;
                 dgvArticulos.Columns["idArticulo"].Visible = false;
-                //pbxListarArticulo.Load(listaArticulo[0].imagenes[0].url);
-                //dgvArticulos.Columns["imagen"].Visible = false;
-                //pbxArticulo.Load(lis) 
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.ToString());
-                //throw ex;
+            }
+            finally
+            {
+                dgvArticulos.SelectionChanged += dgvArticulos_SelectionChanged; //Reconecta
             }
         }
+
         private void cargarImagen(string imagen)
         {
             try
