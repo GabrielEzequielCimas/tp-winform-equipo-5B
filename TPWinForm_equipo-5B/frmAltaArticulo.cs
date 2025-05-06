@@ -59,19 +59,34 @@ namespace TPWinForm_equipo_5B
                 articulo.marca = (Marca)cboMarca.SelectedItem;
                 articulo.categoria = (Categoria)cboCategoria.SelectedItem;
                 imagenes.url = txtUrlImagen.Text;
-                Imagenes imagenSeleccionada = (Imagenes)cmbCambioImagen.SelectedItem;
+
+                if (articuloNegocio.existeCodigo(txtCodArt.Text, articulo?.idArticulo ?? 0))
+                {
+                    MessageBox.Show("Ya existe un articulo con ese codigo. Ingrese uno diferente.");
+                    return;
+                }
                 if (articulo.idArticulo != 0)
                 {
                     articuloNegocio.modificar(articulo);
-                    imagenNegocio.modificar(imagenSeleccionada.idImagen,txtUrlImagen.Text);
-                    MessageBox.Show("Modificado exitosamente");
 
+                    if (cmbCambioImagen.SelectedItem != null)
+                    {
+                        Imagenes imagenSeleccionada = (Imagenes)cmbCambioImagen.SelectedItem;
+                        imagenNegocio.modificar(imagenSeleccionada.idImagen, txtUrlImagen.Text);
+                    }
+                    else if (!string.IsNullOrWhiteSpace(txtUrlImagen.Text))
+                    {
+                        Imagenes nuevaImagen = new Imagenes { url = txtUrlImagen.Text };
+                        imagenNegocio.agregar(nuevaImagen, articulo.idArticulo);
+                    }
+
+                    MessageBox.Show("Modificado exitosamente");
                 }
                 else
                 {
-                    if (articulo.idArticulo == 0 && articuloNegocio.existeCodigo(txtCodArt.Text))
+                    if (articuloNegocio.existeCodigo(txtCodArt.Text, articulo?.idArticulo ?? 0))
                     {
-                        MessageBox.Show("Ya existe un articulo con ese codigo. Ingrese uno diferente.");
+                        MessageBox.Show("Ya existe un artículo con ese código. Ingrese uno diferente.");
                         return;
                     }
                     articuloNegocio.agregar(articulo);

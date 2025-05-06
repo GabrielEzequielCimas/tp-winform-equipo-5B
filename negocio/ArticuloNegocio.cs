@@ -200,13 +200,20 @@ namespace negocio
             }
         }
 
-        public bool existeCodigo(string codigo)
+        public bool existeCodigo(string codigo, int idArticulo = 0)
         {
             ConexionDB datos = new ConexionDB();
             try
             {
-                datos.setearConsulta("SELECT COUNT(*) FROM ARTICULOS WHERE Codigo = @codigo");
+                string consulta = "SELECT COUNT(*) FROM ARTICULOS WHERE Codigo = @codigo";
+                if (idArticulo != 0)
+                    consulta += " AND Id <> @idArticulo";
+
+                datos.setearConsulta(consulta);
                 datos.setearParametro("@codigo", codigo);
+                if (idArticulo != 0)
+                    datos.setearParametro("@idArticulo", idArticulo);
+
                 datos.ejecutarLectura();
                 if (datos.Lector.Read())
                 {
