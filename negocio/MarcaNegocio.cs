@@ -9,6 +9,56 @@ namespace negocio
 {
     public class MarcaNegocio
     {
+        public void eliminarMarca(int id)
+        {
+            try
+            {
+                ConexionDB datos = new ConexionDB();
+                datos.setearConsulta("delete from marcas where Id = @idMarca");
+                datos.setearParametro("idMarca", id);
+                datos.ejecutarAccion();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public bool BuscarMarca(string codigo)
+        {
+            try
+            {
+                ConexionDB datos = new ConexionDB();
+                datos.setearConsulta("select case when lower(@descripcion) in (select lower(Descripcion) from marcas) then 1 else 0 end as flag_marca");
+                datos.setearParametro("descripcion", codigo);
+                datos.ejecutarLectura();
+                datos.Lector.Read();
+                int flagCodigo = (int)datos.Lector["flag_marca"];
+                if (flagCodigo == 1)
+                {
+                    return true;
+                }
+                else return false;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+        public void agregarMarca(string descripcion)
+        {
+            try
+            {
+                ConexionDB datos = new ConexionDB();
+                datos.setearConsulta("insert into marcas (Descripcion) values (@descripcion)");
+                datos.setearParametro("@descripcion", descripcion);
+                datos.ejecutarAccion();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
         public List<Marca> ListarMarcas()
         {
             List<Marca> lista = new List<Marca>();

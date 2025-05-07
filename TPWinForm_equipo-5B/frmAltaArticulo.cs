@@ -29,6 +29,7 @@ namespace TPWinForm_equipo_5B
             InitializeComponent();
             this.articulo = articulo;
             Text = "Modificar Articulo";
+            txtCodArt.Enabled = false;
         }
 
 
@@ -60,6 +61,11 @@ namespace TPWinForm_equipo_5B
                 articulo.categoria = (Categoria)cboCategoria.SelectedItem;
                 imagenes.url = txtUrlImagen.Text;
                 Imagenes imagenSeleccionada = (Imagenes)cmbCambioImagen.SelectedItem;
+                if(articulo.precio <=0)
+                {
+                    MessageBox.Show("El precio debe ser mayor a cero");
+                    return;
+                }
                 if (articulo.idArticulo != 0)
                 {
                     articuloNegocio.modificar(articulo);
@@ -69,6 +75,11 @@ namespace TPWinForm_equipo_5B
                 }
                 else
                 {
+                    if (articuloNegocio.BuscarArticulo(articulo.codigo) == true)
+                    {
+                        MessageBox.Show("El codigo ya  existe");
+                        return;
+                    }
                     articuloNegocio.agregar(articulo);
                     imagenNegocio.agregar(imagenes, 0);
                     MessageBox.Show("Agregado exitosamente");
