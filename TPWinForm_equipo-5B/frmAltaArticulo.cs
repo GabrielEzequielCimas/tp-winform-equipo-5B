@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -29,6 +29,7 @@ namespace TPWinForm_equipo_5B
             InitializeComponent();
             this.articulo = articulo;
             Text = "Modificar Articulo";
+            txtCodArt.Enabled = false;
         }
 
 
@@ -63,6 +64,10 @@ namespace TPWinForm_equipo_5B
                 if (articuloNegocio.existeCodigo(txtCodArt.Text, articulo?.idArticulo ?? 0))
                 {
                     MessageBox.Show("Ya existe un articulo con ese codigo. Ingrese uno diferente.");
+                    return;
+                } else if(articulo.precio <=0)
+                {
+                    MessageBox.Show("El precio debe ser mayor a cero");
                     return;
                 }
                 if (articulo.idArticulo != 0)

@@ -11,14 +11,34 @@ using dominio;
 namespace negocio
 {
     public class ArticuloNegocio
-    {
+    {   
+        public bool BuscarArticulo(string codigo){
+            try
+            {
+                ConexionDB datos = new ConexionDB();
+                datos.setearConsulta("select case when @codigoArticulo in (select Codigo from ARTICULOS) then 1 else 0 end as flag_codigo");
+                datos.setearParametro("CodigoArticulo",  codigo);
+                datos.ejecutarLectura();
+                datos.Lector.Read();
+                int flagCodigo = (int)datos.Lector["flag_codigo"];
+                if (flagCodigo == 1)
+                {
+                    return true;
+                }
+                else return false;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
         public List<Articulo> Listar()
         {
             List<Articulo> lista = new List<Articulo>();
             ConexionDB datos = new ConexionDB();
             try
             {
-                datos.setearConsulta("select a.Id, Codigo, Nombre, a.Descripcion, a.IdMarca, M.Descripcion as marca, a.IdCategoria, C.Descripcion as categoria, Precio from ARTICULOS A left join MARCAS M on a.IdMarca = M.Id left join CATEGORIAS C on A.IdCategoria = c.Id; ");
+                datos.setearConsulta("select a.Id, Codigo, Nombre, a.Descripcion, a.IdMarca, M.Descripcion as marca, a.IdCategoria, C.Descripcion as categoria, Precio from ARTICULOS A join MARCAS M on a.IdMarca = M.Id join CATEGORIAS C on A.IdCategoria = c.Id; ");
                 datos.ejecutarLectura();
                 while (datos.Lector.Read())
                 {

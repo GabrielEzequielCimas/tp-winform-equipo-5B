@@ -279,5 +279,12 @@ namespace TPWinForm_equipo_5B
                 throw;
             }
         }
+
+        private void btnMarcasCategorias_Click(object sender, EventArgs e)
+        {
+            frmMarcasCategorias alta = new frmMarcasCategorias();
+            alta.ShowDialog();
+            cargar();
+        }
     }
 }

@@ -45,6 +45,7 @@
             this.btnAgregarImagen = new System.Windows.Forms.Button();
             this.btnEliminarImagen = new System.Windows.Forms.Button();
             this.btnLimpiarFiltro = new System.Windows.Forms.Button();
+            this.btnMarcasCategorias = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvArticulos)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbxListarArticulo)).BeginInit();
             this.SuspendLayout();
@@ -215,11 +216,22 @@
             this.btnLimpiarFiltro.UseVisualStyleBackColor = true;
             this.btnLimpiarFiltro.Click += new System.EventHandler(this.btnLimpiarFiltro_Click);
             // 
+            // btnMarcasCategorias
+            // 
+            this.btnMarcasCategorias.Location = new System.Drawing.Point(1002, 433);
+            this.btnMarcasCategorias.Name = "btnMarcasCategorias";
+            this.btnMarcasCategorias.Size = new System.Drawing.Size(151, 30);
+            this.btnMarcasCategorias.TabIndex = 18;
+            this.btnMarcasCategorias.Text = "Marcas/Categorias";
+            this.btnMarcasCategorias.UseVisualStyleBackColor = true;
+            this.btnMarcasCategorias.Click += new System.EventHandler(this.btnMarcasCategorias_Click);
+            // 
             // frmListarArticulos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1165, 487);
+            this.Controls.Add(this.btnMarcasCategorias);
             this.Controls.Add(this.btnLimpiarFiltro);
             this.Controls.Add(this.btnEliminarImagen);
             this.Controls.Add(this.btnAgregarImagen);
@@ -266,5 +278,6 @@
         private System.Windows.Forms.Button btnAgregarImagen;
         private System.Windows.Forms.Button btnEliminarImagen;
         private System.Windows.Forms.Button btnLimpiarFiltro;
+        private System.Windows.Forms.Button btnMarcasCategorias;
     }
 }
