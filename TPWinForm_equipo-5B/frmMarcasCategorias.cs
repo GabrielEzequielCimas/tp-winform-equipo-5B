@@ -39,12 +39,13 @@ namespace TPWinForm_equipo_5B
             Marca seleccionado;
             try
             {
-                DialogResult = MessageBox.Show("¿Seguro quiere eliminarlo?", "Eliminando", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-                if (DialogResult == DialogResult.Yes)
+                var respuesta = MessageBox.Show("¿Seguro quiere eliminarlo?", "Eliminando", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                if (respuesta == DialogResult.Yes)
                 {
                     seleccionado = (Marca)cboMarca.SelectedItem;
                     negocio.eliminarMarca(seleccionado.idMarca);
                     cargar();
+                    MessageBox.Show("Eliminado exitosamente");
                 }
             }
             catch (Exception ex)
@@ -58,8 +59,8 @@ namespace TPWinForm_equipo_5B
             MarcaNegocio negocio = new MarcaNegocio();
             try
             {
-                DialogResult = MessageBox.Show("¿Seguro quiere agregarlo?", "Agregando", MessageBoxButtons.YesNo);
-                if (DialogResult == DialogResult.Yes)
+                var respuesta = MessageBox.Show("¿Seguro quiere agregarlo?", "Agregando", MessageBoxButtons.YesNo);
+                if (respuesta == DialogResult.Yes)
                 {
                     if (negocio.BuscarMarca(txtAgregarMarca.Text) == true)
                     {
@@ -72,6 +73,7 @@ namespace TPWinForm_equipo_5B
                         return;
                     }
                     negocio.agregarMarca(txtAgregarMarca.Text);
+                    MessageBox.Show("Agregado exitosamente");
                 }
             }
             catch (Exception ex)
@@ -85,8 +87,8 @@ namespace TPWinForm_equipo_5B
             CategoriaNegocio negocio = new CategoriaNegocio();
             try
             {
-                DialogResult = MessageBox.Show("¿Seguro quiere agregarlo?", "Agregando", MessageBoxButtons.YesNo);
-                if (DialogResult == DialogResult.Yes)
+                var respuesta = MessageBox.Show("¿Seguro quiere agregarlo?", "Agregando", MessageBoxButtons.YesNo);
+                if (respuesta == DialogResult.Yes)
                 {
                     if (negocio.BuscarCategoria(txtAgregarCategoria.Text) == true)
                     {
@@ -99,6 +101,7 @@ namespace TPWinForm_equipo_5B
                         return;
                     }
                     negocio.agregarCategoria(txtAgregarCategoria.Text);
+                    MessageBox.Show("Agregado exitosamente");
                 }
             }
             catch (Exception ex)
@@ -113,12 +116,13 @@ namespace TPWinForm_equipo_5B
             Categoria seleccionado;
             try
             {
-                DialogResult = MessageBox.Show("¿Seguro quiere eliminarlo?", "Eliminando", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-                if (DialogResult == DialogResult.Yes)
+                var respuesta = MessageBox.Show("¿Seguro quiere eliminarlo?", "Eliminando", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                if (respuesta == DialogResult.Yes)
                 {
                     seleccionado = (Categoria)cboCategoria.SelectedItem;
                     negocio.eliminarCategoria(seleccionado.idCategoria);
                     cargar();
+                    MessageBox.Show("Eliminado exitosamente");
                 }
             }
             catch (Exception ex)
