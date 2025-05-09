@@ -35,6 +35,11 @@ namespace TPWinForm_equipo_5B
 
             Articulo seleccion = (Articulo)dgvArticulos.CurrentRow.DataBoundItem;
 
+            if (seleccion.imagenes == null || seleccion.imagenes.Count == 0)
+            {
+                MessageBox.Show("Este producto no tiene imágenes");
+            }
+
             if (seleccion == null || seleccion.imagenes == null)
                 return;
 
@@ -94,14 +99,19 @@ namespace TPWinForm_equipo_5B
 
         private void cargarImagen(string imagen)
         {
+            if (string.IsNullOrEmpty(imagen))
+            {
+                pbxListarArticulo.Load("https://upload.wikimedia.org/wikipedia/commons/d/d1/Image_not_available.png");
+                return;
+            }
+
             try
             {
                 pbxListarArticulo.Load(imagen);
             }
-            catch (Exception)
+            catch
             {
-
-                pbxListarArticulo.Load("https://media.istockphoto.com/id/1147544807/vector/thumbnail-image-vector-graphic.jpg?s=612x612&w=0&k=20&c=rnCKVbdxqkjlcs3xH87-9gocETqpspHFXu5dIGB4wuM=");
+                pbxListarArticulo.Load("https://upload.wikimedia.org/wikipedia/commons/d/d1/Image_not_available.png");
             }
         }
 
